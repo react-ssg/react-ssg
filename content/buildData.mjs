@@ -12,12 +12,16 @@ const readFile = promisify(fs.readFile);
 const writeFile = promisify(fs.writeFile);
 
 const getFiles = async (dir) => {
-  const dirents = await readdir(dir, { withFileTypes: true });
-  const files = await Promise.all(dirents.map((dirent) => {
-    const res = resolve(dir, dirent.name);
-    return dirent.isDirectory() ? getFiles(res) : res;
-  }));
-  return Array.prototype.concat(...files);
+  try {
+    const dirents = await readdir(dir, { withFileTypes: true });
+    const files = await Promise.all(dirents.map((dirent) => {
+      const res = resolve(dir, dirent.name);
+      return dirent.isDirectory() ? getFiles(res) : res;
+    }));
+    return Array.prototype.concat(...files);  
+  } catch(e) {
+    return [];
+  }
 };
 
 export const getData = async (contentFolder) => {
