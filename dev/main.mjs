@@ -28,7 +28,7 @@ export const main = async (
     ...webpackConfig,
     plugins: [
       ...webpackConfig.plugins,
-      new AssetPlugin({ path: tempDir }),
+      new AssetPlugin({ path: tempDir, removeFullPathAutoPrefix: true }),
     ],
     mode: 'development',
     context: appParent,
@@ -58,11 +58,11 @@ export const main = async (
       <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="/dist/${wa.app.css.slice(5)}">
+        ${wa.app.css ? `<link rel="stylesheet" href="/dist/${wa.app.css}">` : ""}
       </head>
       <body>
         <div id="app"></div>
-        <script src="/dist/${wa.app.js.slice(5)}"></script>
+        <script src="/dist/${wa.app.js}"></script>
       </body>
     </html>
     `);

@@ -42,7 +42,7 @@ export const main = async (
     ...webpackConfig,
     plugins: [
       ...webpackConfig.plugins,
-      new AssetPlugin({ path: tempDir }),
+      new AssetPlugin({ path: tempDir, removeFullPathAutoPrefix: true }),
     ],
     target: 'node',
     mode: 'development',
