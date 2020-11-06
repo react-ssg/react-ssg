@@ -8,6 +8,9 @@ const pathFill = (path) => {
   if (!path.root) throw errorBuilder('path.root');
   const root = path.root;
   const app = path.app ?? join(root, './src/App.jsx');
+  if (!app.endsWith('App.jsx')) {
+    throw new Error("path.app filename must equal to App.jsx");
+  }
   const appParent = dirname(app);
   const build = path.build ?? join(root, './public');
   const assets = path.assets ?? join(root, './static');
