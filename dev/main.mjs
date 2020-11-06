@@ -22,6 +22,10 @@ export const main = async (
   const devServer = new StaticServer({
     rootPath: buildFolder,
     port: 8080,
+    templates: {
+      index: '404.html',
+      notFound: '404.html',
+    },
   });
   try {
     await new Promise((res)=>devServer.start(res));
