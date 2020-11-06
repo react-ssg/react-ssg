@@ -23,6 +23,13 @@ export const main = async (
     rootPath: buildFolder,
     port: 8080,
   });
+  try {
+    await new Promise((res)=>devServer.start(res));
+    console.log('Dev server available at http://localhost:8080')
+  } catch(e) {
+    console.log('Port 8080 is busy! Exiting...');
+    process.exit(0);
+  }
   const tempDir = await mkdtemp(join(tmpdir(), 'react-ssg-'));
   const wiName = './client-sdjsafjkhdsf-gitignore.js';
   const wiPath = join(appParent, wiName);
@@ -72,7 +79,6 @@ export const main = async (
     </html>
     `);
     console.log('Builded at ' + (new Date));
-    await new Promise((res)=>devServer.start(res));
     started = true;
   });
   exitHandler(async () => {
