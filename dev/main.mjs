@@ -24,7 +24,7 @@ export const main = async (
     port: 8080,
     templates: {
       index: '404.html',
-      notFound: '404.html',
+      notFound: path.join(buildFolder, '404.html'),
     },
   });
   try {
