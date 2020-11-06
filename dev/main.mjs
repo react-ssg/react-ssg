@@ -19,6 +19,10 @@ const mkdtemp = promisify(fs.mkdtemp);
 export const main = async (
   appParent, buildFolder, staticFolder, webpackConfig, rootFolder, contentFolder,
 ) => {
+  if (!fs.existsSync(join(appParent, 'App.jsx'))) {
+    console.log(`${join(appParent, 'App.jsx')} does not exists. Exiting...`);
+    process.exit(0);
+  }
   const devServer = new StaticServer({
     rootPath: buildFolder,
     port: 8080,

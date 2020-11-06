@@ -33,6 +33,10 @@ export const main = async (
   appParent, buildFolder, staticFolder, webpackConfig,
   rootFolder, contentFolder, urlBuilder,
 ) => {
+  if (!fs.existsSync(join(appParent, 'App.jsx'))) {
+    console.log(`${join(appParent, 'App.jsx')} does not exists. Exiting...`);
+    process.exit(0);
+  }
   const tempDir = await mkdtemp(join(tmpdir(), 'react-ssg-'));
   await rmdir(buildFolder, { recursive: true });
   const wiName = './entry-dfjdshfdjsfhjsk-gitignore.js';
