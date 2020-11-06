@@ -8,6 +8,7 @@ import { buildData } from "../content/buildData.mjs";
 import { tmpdir } from "os";
 import AssetPlugin from "assets-webpack-plugin";
 import { exitHandler } from "../util/exitHandler.mjs";
+import StaticServer from "static-server";
 
 const rmdir = promisify(fs.rmdir);
 const readFile = promisify(fs.readFile);
@@ -18,6 +19,10 @@ const mkdtemp = promisify(fs.mkdtemp);
 export const main = async (
   appParent, buildFolder, staticFolder, webpackConfig, rootFolder, contentFolder,
 ) => {
+  const devServer = new StaticServer({
+    rootPath: buildFolder,
+    port: 8080,
+  });
   const tempDir = await mkdtemp(join(tmpdir(), 'react-ssg-'));
   const wiName = './client-sdjsafjkhdsf-gitignore.js';
   const wiPath = join(appParent, wiName);
@@ -67,6 +72,7 @@ export const main = async (
     </html>
     `);
     console.log('Builded at ' + (new Date));
+    await new Promise((res)=>devServer.start(res));
     started = true;
   });
   exitHandler(async () => {
