@@ -31,7 +31,7 @@ const run = (compiler) => new Promise((res) => {
 
 export const main = async (
   appParent, buildFolder, staticFolder, webpackConfig,
-  rootFolder, contentFolder, urlBuilder,
+  rootFolder, contentFolder, urlBuilder, wellKnown,
 ) => {
   if (!fs.existsSync(join(appParent, 'App.jsx'))) {
     console.log(`${join(appParent, 'App.jsx')} does not exists. Exiting...`);
@@ -64,6 +64,9 @@ export const main = async (
   });
   await run(serverCompiler);
   await fsEx.copy(join(myBuildFolder, 'client.js'), wiPath);
+  if (wellKnown) {
+    await fsEx.copy(wellKnown, join(buildFolder, '.well-known'));
+  }
   const clientCompiler = webpack({
     ...webpackConfig,
     plugins: [

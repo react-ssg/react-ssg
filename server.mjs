@@ -7,7 +7,7 @@ const { Command } = commander;
 
 export const cli = (params) => {
   const {
-    path: { appParent, build, assets, root, content },
+    path: { appParent, build, assets, root, content, wellKnown },
     webpack: { baseConfig },
     urls,
   } = paramFill(params);
@@ -16,7 +16,7 @@ export const cli = (params) => {
     devMain(appParent, build, assets, baseConfig, root, content);
   });
   program.command('build').action(async () => {
-    buildMain(appParent, build, assets, baseConfig, root, content, urls);
+    buildMain(appParent, build, assets, baseConfig, root, content, urls, wellKnown);
   });
   program.parse(process.argv);
 };

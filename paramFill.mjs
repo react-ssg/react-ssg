@@ -17,6 +17,7 @@ const pathFill = (path) => {
   const content = path.content ?? join(root, './content');
   return {
     root, app, appParent, build, assets, content,
+    wellKnown: path.wellKnown,
   };
 };
 
