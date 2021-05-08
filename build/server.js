@@ -1,5 +1,5 @@
 import { App } from "./App.jsx";
-import ReactDOMServer from "react-dom/server";
+import ReactDOMServer from "react-dom/server.js";
 import React from "react";
 import { StaticRouter } from "react-router-dom";
 import { ContentContext } from "react-ssg";
