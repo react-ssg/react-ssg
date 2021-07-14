@@ -1,6 +1,6 @@
 {
   "name": "react-ssg",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "A static site generator using react",
   "main": "index.js",
   "scripts": {

@@ -10,7 +10,7 @@ import AssetPlugin from "assets-webpack-plugin";
 import { exitHandler } from "../util/exitHandler.mjs";
 import StaticServer from "static-server";
 
-const rmdir = promisify(fs.rmdir);
+const rm = promisify(fs.rm);
 const readFile = promisify(fs.readFile);
 const writeFile = promisify(fs.writeFile);
 const removeFile = promisify(fs.unlink);
@@ -42,7 +42,7 @@ export const main = async (
   const wiName = './client-sdjsafjkhdsf-gitignore.js';
   const wiPath = join(appParent, wiName);
   await fsEx.copy(join(myDevFolder, 'client.js'), wiPath);
-  await rmdir(buildFolder, { recursive: true });
+  await rm(buildFolder, { recursive: true, force: true });
   let started = false;
   const compiler = webpack({
     ...webpackConfig,
@@ -94,7 +94,7 @@ export const main = async (
     console.log('Stop watching...');
     await new Promise((res) => watching.close(()=>res()));
     console.log('Removing files...');
-    await rmdir(tempDir, { recursive: true });
+    await rm(tempDir, { recursive: true, force: true });
     await removeFile(wiPath);
     console.log('Exited successfully');
   });

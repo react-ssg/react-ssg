@@ -10,7 +10,7 @@ import { exitHandler } from "../util/exitHandler.mjs";
 import { buildData } from "../content/buildData.mjs";
 import { buildStatic } from "../content/buildStatic.mjs";
 
-const rmdir = promisify(fs.rmdir);
+const rm = promisify(fs.rm);
 const readFile = promisify(fs.readFile);
 const writeFile = promisify(fs.writeFile);
 const mkdir = promisify(fs.mkdir);
@@ -38,7 +38,7 @@ export const main = async (
     process.exit(0);
   }
   const tempDir = await mkdtemp(join(tmpdir(), 'react-ssg-'));
-  await rmdir(buildFolder, { recursive: true });
+  await rm(buildFolder, { recursive: true, force: true });
   const wiName = './entry-dfjdshfdjsfhjsk-gitignore.js';
   const wiPath = join(appParent, wiName);
   await fsEx.copy(join(myBuildFolder, 'server.js'), wiPath);
@@ -96,6 +96,6 @@ export const main = async (
     await mkdir(pu, { recursive: true });
     await writeFile(path.join(pu, 'index.html'), gh(url));
   }));
-  await rmdir(tempDir, { recursive: true });
+  await rm(tempDir, { recursive: true, force: true });
   await removeFile(wiPath);  
 };
